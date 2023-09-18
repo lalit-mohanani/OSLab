@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "pthread.h": "c",
+        "21CS02006_A2.C": "cpp"
+    }
+}
