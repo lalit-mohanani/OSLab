@@ -164,7 +164,20 @@ int takeInput(char* str){
 	char* buf;
 	// prompt();
 	
-	buf = readline(NULL);
+	char cwd[1024];
+	char init[1024];
+	char* username = getenv("USER");
+	// printf("%s@", username);
+	strcpy(init,"\e[1;32m");
+	strcat(init,username);
+	strcat(init,"@\e[0m\e[1;34m");
+	// strcat(init,"@");
+	getcwd(cwd, sizeof(cwd));
+	strcat(init,cwd);
+	strcat(init,"\e[0m\e[1;35m$\e[0m ");
+	// printf("%s$ ", cwd);
+
+	buf = readline(init);
 	if (strlen(buf) != 0) {
 		add_history(buf);
 		addCommand(buf);
@@ -175,13 +188,13 @@ int takeInput(char* str){
 	}
 }
 
-void prompt(){
-	char cwd[1024];
-	char* username = getenv("USER");
-	printf("%s@", username);
-	getcwd(cwd, sizeof(cwd));
-	printf("%s$ ", cwd);
-}
+// void prompt(){
+// 	char cwd[1024];
+// 	char* username = getenv("USER");
+// 	printf("%s@", username);
+// 	getcwd(cwd, sizeof(cwd));
+// 	printf("%s$ ", cwd);
+// }
 
 void execArgs(char** parsed,char* str){
 
@@ -374,7 +387,7 @@ int main(){
 	printf("Commands supported are {exit,cd,help,history,jobs,kill} and all general UNIX shell cmds \n");
 	while (1) {
 		// print shell line
-		prompt();
+		// prompt();
 		// take input
 		if (takeInput(inputString))
 			continue;
